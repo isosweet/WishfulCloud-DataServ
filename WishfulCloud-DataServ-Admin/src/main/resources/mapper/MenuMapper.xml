@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wishfulcloud.dataServ.admin.mapper.MenuMapper" >
+
+  <sql id="Base_Column_List" >
+	    id as "id", 
+	    parent_id as "parentId", 
+	    tenant_code as "tenantCode", 
+	    menu_name as "menuName", 
+	    href as "href", 
+	    target as "target",  
+	    icon as "icon", 
+	    is_show as "isShow", 
+	    permission as "permission",  
+	    sort as "sort", 
+	    create_date as "createDate", 
+	    update_date as "updateDate", 
+	    remarks as "remarks", 
+	    del_flag as "delFlag"
+  </sql>
+  
+  <select id="getById" parameterType="java.lang.String" resultType="com.wishfulcloud.dataServ.admin.entity.Menu">
+    select 
+    <include refid="Base_Column_List" />
+    from menu
+    where id = #{id} and del_flag = '0'
+  </select>
+  
+  <select id="totalCount">
+  	select count(*)
+  	from menu
+  	where del_flag = '0'
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from menu
+    where id = #{id}
+  </delete>
+  
+  <update id="logicDelete" parameterType="java.lang.String">
+  	update menu
+  		<set>
+  		 del_flag = #{delFlag}
+  		</set>
+  	where id = #{id} 
+  </update>
+  
+  <insert id="insert" parameterType="com.wishfulcloud.dataServ.admin.entity.Menu" >
+    insert into menu (id, 
+    				  parent_id, 
+    				  tenant_code, 
+				      menu_name, 
+				      href, 
+				      target, 
+				      icon, 
+				      is_show, 
+				      permission, 
+				      sort, 
+				      create_date, 
+				      update_date, 
+				      remarks, 
+				      del_flag)
+				      
+			    values (#{id}, 
+			    	    #{parentId}, 
+			    	    #{tenantCode}, 
+			      		#{menuName}, 
+			      		#{href}, 
+			      		#{target}, 
+			      		#{icon}, 
+			      		#{isShow}, 
+			      		#{permission}, 
+			      		#{sort}, 
+			      		#{createDate}, 
+			      		#{updateDate}, 
+			      		#{remarks}, 
+			      		#{delFlag})
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.wishfulcloud.dataServ.admin.entity.Menu" >
+    update menu
+    <set >
+      <if test="parentId != null" >
+        parent_id = #{parentId},
+      </if>
+      <if test="tenantCode != null" >
+        tenant_code = #{tenantCode},
+      </if>
+      <if test="menuName != null" >
+        menu_name = #{menuName},
+      </if>
+      <if test="href != null" >
+        href = #{href},
+      </if>
+      <if test="target != null" >
+        target = #{target},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon},
+      </if>
+      <if test="isShow != null" >
+        is_show = #{isShow},
+      </if>
+      <if test="permission != null" >
+        permission = #{permission},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  
+</mapper>
