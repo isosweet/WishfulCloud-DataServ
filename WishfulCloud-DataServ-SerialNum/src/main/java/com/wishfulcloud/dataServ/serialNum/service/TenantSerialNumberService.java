@@ -4,16 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.wishfulcloud.commons.model.ResponseResult;
 import com.wishfulcloud.commons.utils.IdGen;
 import com.wishfulcloud.dataServ.serialNum.entity.TenantSerialNumber;
-import com.wishfulcloud.dataServ.serialNum.mapper.TenantSerialNumberMapper;
+import com.wishfulcloud.dataServ.serialNum.message.SerialNumMessage;
+import com.wishfulcloud.dataServ.serialNum.repository.TenantSerialNumberRepos;
 
 @Service
 @Transactional
 public class TenantSerialNumberService {
 	
 	@Autowired
-	private TenantSerialNumberMapper tenantSerialNumberMapper;
+	private TenantSerialNumberRepos tenantSerialNumberRepos;
 	
 	/**
 	 * 根据租户编号查询 
@@ -22,7 +24,7 @@ public class TenantSerialNumberService {
 	 * @return
 	 */
 	public TenantSerialNumber getTenantSerialNumberByTenantCode(String tenantCode){
-		return tenantSerialNumberMapper.getTenantSerialNumberByTenantCode(tenantCode);
+		return tenantSerialNumberRepos.getTenantSerialNumberByTenantCode(tenantCode);
 	}
 	
 	
@@ -33,16 +35,25 @@ public class TenantSerialNumberService {
 	 * @return 成功返回 id,失败返回 null
 	 * @throws Exception
 	 */
-	public String saveTenantSerialNum(TenantSerialNumber tenantSerialNumber) throws Exception{
+	public ResponseResult saveTenantSerialNum(TenantSerialNumber tenantSerialNumber) throws Exception{
+		
+		// 一个租户只能对应一个编号规则
+		TenantSerialNumber tsn = tenantSerialNumberRepos.getTenantSerialNumberByTenantCode(tenantSerialNumber.getTenantCode());
+		if (tsn != null){
+			return SerialNumMessage.buildResponseResult(true, "", "一个租户只能对应一个编号规则");
+		}
+		
+		// 编号规则是否存在
+		// TODO
 		
 		String id = IdGen.uuid();
 		tenantSerialNumber.setId(id);
 		
-		boolean saveFlag = tenantSerialNumberMapper.insert(tenantSerialNumber);
+		boolean saveFlag = tenantSerialNumberRepos.insert(tenantSerialNumber);
 		
-		if (saveFlag) return id;
+		if (saveFlag) return SerialNumMessage.buildResponseResultFail();
 		
-		return null;
+		return SerialNumMessage.buildResponseResultSuccess(id);
 	}
 	
 	

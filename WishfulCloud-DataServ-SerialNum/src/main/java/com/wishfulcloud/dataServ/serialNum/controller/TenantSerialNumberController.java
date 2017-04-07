@@ -33,18 +33,8 @@ public class TenantSerialNumberController {
 		if (validationResult.isHasErrors()){
 			return SerialNumMessage.buildResponseResult(true, "", "输入参数未校验通过", validationResult.getErrorMsg());
 		}
-		
-		TenantSerialNumber tsn = tenantSerialNumberService.getTenantSerialNumberByTenantCode(tenantSerialNumber.getTenantCode());
-		if (tsn != null){
-			return SerialNumMessage.buildResponseResult(true, "", "一个租户编号只能有一种生成规则");
-		}
-		
-		String tenantSerialNumberId = tenantSerialNumberService.saveTenantSerialNum(tenantSerialNumber);
-		if (null == tenantSerialNumberId){
-			return SerialNumMessage.buildResponseResultFail();
-		}
-		return SerialNumMessage.buildResponseResultSuccess(tenantSerialNumberId);
-		
+
+		return tenantSerialNumberService.saveTenantSerialNum(tenantSerialNumber);
 	}
 	
 }
