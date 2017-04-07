@@ -8,7 +8,14 @@
 
 
 	<modules>
+		<!-- 商品服务 -->
 		<module>WishfulCloud-DataServ-Product</module>
+		
+		<!-- 序号生成规则 -->
+		<module>WishfulCloud-DataServ-SerialNum</module>
+		
+		<!-- 管理系统的权限管理 -->
+		<module>WishfulCloud-DataServ-Admin</module>
 	</modules>
 
 	<parent>
