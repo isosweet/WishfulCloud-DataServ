@@ -3,6 +3,8 @@ package com.wishfulcloud.dataServ.serialNum.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * Model class of 租户的编号规则.
  * 
@@ -18,22 +20,24 @@ public class TenantSerialNumber implements Serializable {
 	private String id;
 
 	/** 租户编号. */
+	@NotBlank(message = "租户编号不能为空")
 	private String tenantCode;
 
 	/** 编号规则id. */
+	@NotBlank(message = "编号规则id不能为空")
 	private String ruleId;
 
 	/** 创建时间. */
-	private Date createDate;
+	private Date createDate = new Date();
 
 	/** 更新时间. */
-	private Date updateDate;
+	private Date updateDate = new Date();
 
 	/** 备注信息. */
-	private String remarks;
+	private String remarks = " ";
 
 	/** 删除标记. */
-	private String delFlag;
+	private String delFlag = "0";
 
 	/**
 	 * Constructor.

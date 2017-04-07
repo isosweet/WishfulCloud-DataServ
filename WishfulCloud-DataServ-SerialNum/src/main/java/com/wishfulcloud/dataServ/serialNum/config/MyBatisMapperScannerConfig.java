@@ -17,7 +17,7 @@ public class MyBatisMapperScannerConfig {
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
         mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
-        mapperScannerConfigurer.setBasePackage("com.wishfulcloud.dataServ.admin.mapper");
+        mapperScannerConfigurer.setBasePackage("com.wishfulcloud.dataServ.serialNum.mapper");
         return mapperScannerConfigurer;
     }
 }

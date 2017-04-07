@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wishfulcloud.dataServ.serialNum.mapper.SerialNumberCreateRuleMapper" >
+  
+  <sql id="Base_Column_List" >
+	    id as "id", 
+	    create_type as "createType", 
+	    digit_capacity as "digitCapacity", 
+	    text_location as "textLocation", 
+	    fixed_text as "fixedText", 
+	    beginning as "beginning", 
+	    create_date as "createDate", 
+	    update_date as "updateDate", 
+	    remarks as "remarks", 
+	    del_flag as "delFlag"
+  </sql>
+  
+  <select id="getById" parameterType="java.lang.String" resultType="com.wishfulcloud.dataServ.serialNum.entity.SerialNumberCreateRule">
+    select 
+    <include refid="Base_Column_List" />
+    from serial_number_create_rule
+    where id = #{id} and del_flag = '0'
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from serial_number_create_rule
+    where id = #{id}
+  </delete>
+  
+  <insert id="insert" parameterType="com.wishfulcloud.dataServ.serialNum.entity.SerialNumberCreateRule" >
+	    insert into serial_number_create_rule (id, 
+	    									   create_type, 
+	    									   digit_capacity, 
+	      									   text_location, 
+	      									   fixed_text, 
+	      									   beginning, 
+	      									   create_date, 
+	      									   update_date, 
+	      									   remarks, 
+	      									   del_flag)
+	      									   
+									    values (#{id}, 
+									    		#{createType}, 
+									    		#{digitCapacity}, 
+									      		#{textLocation}, 
+									      		#{fixedText}, 
+									      		#{beginning}, 
+									      		#{createDate}, 
+									      		#{updateDate}, 
+									      		#{remarks}, 
+									      		#{delFlag})
+  </insert>
+  
+  <update id="logicDelete" parameterType="java.lang.String">
+  	update serial_number_create_rule
+  	<set>
+  		del_flag = '1',
+  	</set>
+  	where id = #{id}
+  </update>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.wishfulcloud.dataServ.serialNum.entity.SerialNumberCreateRule" >
+    update serial_number_create_rule
+    <set >
+      <if test="createType != null" >
+        create_type = #{createType},
+      </if>
+      <if test="digitCapacity != null" >
+        digit_capacity = #{digitCapacity},
+      </if>
+      <if test="textLocation != null" >
+        text_location = #{textLocation},
+      </if>
+      <if test="fixedText != null" >
+        fixed_text = #{fixedText},
+      </if>
+      <if test="beginning != null" >
+        beginning = #{beginning},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+</mapper>

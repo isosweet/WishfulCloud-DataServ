@@ -3,6 +3,10 @@ package com.wishfulcloud.dataServ.serialNum.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * Model class of 编号生成规则.
  * 
@@ -17,32 +21,50 @@ public class SerialNumberCreateRule implements Serializable {
 	/** 编号id. */
 	private String id;
 
-	/** 生成方式. */
-	private Byte createType;
+	/** 生成方式 : 0.自增长序号
+	 * 			  1.时间戳
+	 * 			  2.年度+序号
+	 * 			  3.年度+月度+序号
+	 * 			  4.年度+月度+日+序号
+	 * 			  5.时间戳+序号
+	 * 			  6.文本（传入）+序号
+	 * */
+	@NotNull (message = "生成方式不能为空")
+	private Integer createType;
 
 	/** 序号位数. */
+	@NotNull (message = "序号位数不能为空")
 	private Integer digitCapacity;
 
-	/** 文本位置. */
-	private Byte textLocation;
+	/** 文本位置 : 0 无文本
+	 * 			  1 最前
+	 * 			  2 最后
+	 * 			  3 第一段后
+	 * 			  4 第二段后
+	 *            5 第三段后 
+	 **/
+	@NotNull(message = "文本位置不能为空")
+	private Integer textLocation;
 
 	/** 固定文本. */
+	@NotBlank(message = "固定文本不能为空")
 	private String fixedText;
 
 	/** 序号起点. */
+	@NotNull(message = "序号起点不能为空")
 	private Integer beginning;
 
 	/** 创建时间. */
-	private Date createDate;
+	private Date createDate = new Date();
 
 	/** 更新时间. */
-	private Date updateDate;
+	private Date updateDate = new Date();
 
 	/** 备注信息. */
-	private String remarks;
+	private String remarks  = "";
 
 	/** 删除标记. */
-	private String delFlag;
+	private String delFlag = "0";
 
 	/**
 	 * Constructor.
@@ -75,7 +97,7 @@ public class SerialNumberCreateRule implements Serializable {
 	 * @param createType
 	 *            生成方式
 	 */
-	public void setCreateType(Byte createType) {
+	public void setCreateType(Integer createType) {
 		this.createType = createType;
 	}
 
@@ -84,7 +106,7 @@ public class SerialNumberCreateRule implements Serializable {
 	 * 
 	 * @return 生成方式
 	 */
-	public Byte getCreateType() {
+	public Integer getCreateType() {
 		return this.createType;
 	}
 
@@ -113,7 +135,7 @@ public class SerialNumberCreateRule implements Serializable {
 	 * @param textLocation
 	 *            文本位置
 	 */
-	public void setTextLocation(Byte textLocation) {
+	public void setTextLocation(Integer textLocation) {
 		this.textLocation = textLocation;
 	}
 
@@ -122,7 +144,7 @@ public class SerialNumberCreateRule implements Serializable {
 	 * 
 	 * @return 文本位置
 	 */
-	public Byte getTextLocation() {
+	public Integer getTextLocation() {
 		return this.textLocation;
 	}
 
