@@ -12,6 +12,14 @@ import com.wishfulcloud.dataServ.serialNum.entity.TenantSerialNumber;
 import com.wishfulcloud.dataServ.serialNum.message.SerialNumMessage;
 import com.wishfulcloud.dataServ.serialNum.service.TenantSerialNumberService;
 
+/**   
+ * @Title: 
+ * @Description:  租户的编号规则
+ * @author wangxuezheng
+ * @date 2017年4月7日 下午5:23:55
+ * @version V1.0   
+ *
+ */
 @RestController
 @RequestMapping("tenantSerialNumber")
 public class TenantSerialNumberController {
