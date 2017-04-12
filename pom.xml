@@ -16,6 +16,9 @@
 		
 		<!-- 管理系统的权限管理 -->
 		<module>WishfulCloud-DataServ-Admin</module>
+		
+		<!-- 公共数据服务 -->
+		<module>WishfulCloud-DataServ-Common</module>
 	</modules>
 
 	<parent>

@@ -26,6 +26,12 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>com.wishfulcloud.commons.utils</groupId>
+			<artifactId>WishfulCloud-Commons-Utils</artifactId>
+		</dependency>		
+
+
+		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 		</dependency>

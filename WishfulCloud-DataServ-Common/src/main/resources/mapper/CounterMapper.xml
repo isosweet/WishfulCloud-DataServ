@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wishfulcloud.dataServ.common.mapper.CounterMapper" >
+  
+  <sql id="Base_Column_List" >
+	    id as "", 
+	    tenant_code as "", 
+	    count_type as "", 
+	    user_id as "", 
+	    object_id as "", 
+	    count_value as "", 
+	    create_date as "", 
+	    update_date as "", 
+	    remarks as "", 
+	    del_flag as ""
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from counter
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from counter
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="andy.model.counter" >
+    insert into counter (id, tenant_code, count_type, user_id, object_id, count_value, create_date, update_date, remarks, 
+      del_flag)
+    values (#{id,jdbcType=VARCHAR}, #{tenantCode,jdbcType=VARCHAR}, #{countType,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=VARCHAR}, #{objectId,jdbcType=VARCHAR}, #{countValue,jdbcType=BIGINT}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, 
+      #{delFlag,jdbcType=CHAR})
+  </insert>
+  
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="andy.model.counter" >
+    update counter
+    <set >
+      <if test="tenantCode != null" >
+        tenant_code = #{tenantCode,jdbcType=VARCHAR},
+      </if>
+      <if test="countType != null" >
+        count_type = #{countType,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="objectId != null" >
+        object_id = #{objectId,jdbcType=VARCHAR},
+      </if>
+      <if test="countValue != null" >
+        count_value = #{countValue,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
