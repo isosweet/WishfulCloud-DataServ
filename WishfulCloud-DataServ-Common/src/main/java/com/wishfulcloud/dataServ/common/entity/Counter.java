@@ -17,6 +17,9 @@ public class Counter implements Serializable {
 	/** id. */
 	private String id;
 
+	/** 计数器的key. */
+	private String countKey;
+
 	/** 租户编号. */
 	private String tenantCode;
 
@@ -33,16 +36,16 @@ public class Counter implements Serializable {
 	private Long countValue;
 
 	/** 创建时间. */
-	private Date createDate;
+	private Date createDate = new Date();
 
 	/** 更新时间. */
-	private Date updateDate;
+	private Date updateDate = new Date();
 
 	/** 备注信息. */
-	private String remarks;
+	private String remarks = " ";
 
 	/** 删除标记. */
-	private String delFlag;
+	private String delFlag = "0";
 
 	/**
 	 * Constructor.
@@ -67,6 +70,25 @@ public class Counter implements Serializable {
 	 */
 	public String getId() {
 		return this.id;
+	}
+
+	/**
+	 * Set the 计数器的key.
+	 * 
+	 * @param countKey
+	 *            计数器的key
+	 */
+	public void setCountKey(String countKey) {
+		this.countKey = countKey;
+	}
+
+	/**
+	 * Get the 计数器的key.
+	 * 
+	 * @return 计数器的key
+	 */
+	public String getCountKey() {
+		return this.countKey;
 	}
 
 	/**
